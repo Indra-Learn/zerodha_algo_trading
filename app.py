@@ -6,7 +6,8 @@ import os
 import sys
 import logging
 import requests
-from flask import Flask, render_template, session, request
+from flask import Flask, request, render_template, redirect, url_for, session, flash
+from functools import wraps
 from kiteconnect import KiteConnect
 
 logging.basicConfig(level=logging.DEBUG)
@@ -15,7 +16,7 @@ parentdir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 sys.path.append(parentdir)
 
 from config import dev_config
-from utils.kite_api import get_kite_secret
+from utils.kite_api import get_kite_secret, get_admin_secret
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # required for flask-session
@@ -24,11 +25,45 @@ HOST = dev_config["host"]
 PORT = dev_config["port"]
 kite_secret = get_kite_secret()
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            flash('Please log in to access this page.', 'danger')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 def get_kite_client():
     kite = KiteConnect(api_key=kite_secret["api_key"])
     if "kite_access_token" in session:
         kite.set_access_token(session["kite_access_token"])
     return kite
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # If user is already logged in, redirect to home
+    if 'username' in session:
+        pass
+    elif request.method == 'POST':
+        username = request.form['loginEmail']
+        password = request.form['loginPassword']
+        # Check if user exists and password matches
+        admin_secret = get_admin_secret()
+        if username == admin_secret.get("userid") and password == admin_secret.get("password"):
+            # Set session variables
+            session['username'] = username
+            flash('Login successful!', 'success')
+        else:
+            flash('Invalid username or password. Please try again.', 'danger')
+    return redirect(url_for('home'))
+
+@app.route('/logout')
+def logout():
+    # Clear the session
+    session.clear()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('home'))
 
 # Home Page
 @app.route("/")
@@ -36,22 +71,24 @@ def home():
     kite_login = False
     html_data = {}
     html_data["login_url"] = "https://kite.zerodha.com/connect/login?api_key={api_key}".format(api_key=kite_secret["api_key"])
-    html_data["redirect_url"] = "http://{host}:{port}/login".format(host=HOST, port=PORT)
+    html_data["redirect_url"] = "http://{host}:{port}/kitelogin".format(host=HOST, port=PORT)
     html_data["console_url"] = "https://developers.kite.trade/apps/{api_key}".format(api_key=kite_secret["api_key"])
-    
-    if "kite_access_token" in session:
-        kite_login = True
-        html_data["kite_user_type"] = session.get("kite_user_type")
-        html_data["kite_email"] = session.get("kite_email")
-        html_data["kite_user_name"] = session.get("kite_user_name")
-        html_data["kite_user_id"] = session.get("kite_user_id")
-        html_data["kite_avatar_url"] = session.get("kite_avatar_url")
-        html_data["kite_broker"] = session.get("kite_broker")
+    if "username" in session:
+        html_data["username"] = session.get("username")
+        if "kite_access_token" in session:
+            kite_login = True
+            html_data["kite_user_type"] = session.get("kite_user_type")
+            html_data["kite_email"] = session.get("kite_email")
+            html_data["kite_user_name"] = session.get("kite_user_name")
+            html_data["kite_user_id"] = session.get("kite_user_id")
+            html_data["kite_avatar_url"] = session.get("kite_avatar_url")
+            html_data["kite_broker"] = session.get("kite_broker")
     return render_template('home/home.html', kite_login=kite_login, html_data=html_data)
 
 # Kite Login
-@app.route("/login")    
-def login():
+@app.route("/kitelogin")
+@login_required
+def kite_login():
     kite_request_token = request.args.get("request_token")
     if not kite_request_token:
         return """
@@ -72,6 +109,7 @@ def login():
 
 
 @app.route("/holdings")
+@login_required
 def holdings():
     kite_headers = {
         "X-Kite-Version": "3",
@@ -82,16 +120,13 @@ def holdings():
     data = response.json()
     return data["data"]
 
-
-@app.route('/index')
-def index():
-    return render_template('base.html')
-
 @app.route('/trade')
+@login_required
 def trade():
     return render_template('base.html', active_page='trade')
 
 @app.route('/ticker')
+@login_required
 def ticker():
     return render_template('base.html', active_page='ticker')
 

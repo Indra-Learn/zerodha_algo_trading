@@ -7,9 +7,9 @@
 {% block content %}
 <div class="content-box">
     <h1>Welcome to TheDataFestAI</h1>
-    <p>This is a place where you can learn <strong style="text-transform: uppercase">w</strong>hy to invest, <strong style="text-transform: uppercase">w</strong>here to invest and <strong style="text-transform: uppercase">h</strong>ow to invest.</p>
-    <p>Learn cutting edge technologies here. Understand each and everything <strong style="text-transform: uppercase">s</strong>tep by <strong style="text-transform: uppercase">s</strong>tep.</p>
-    <p>Learn and implement <strong style="text-transform: uppercase">t</strong>echnology and use them in your <strong style="text-transform: uppercase">i</strong>nvestment journey regularly.</p>
+    <p>→ This is a place where you can learn <strong style="text-transform: uppercase">w</strong>hy to invest, <strong style="text-transform: uppercase">w</strong>here to invest and <strong style="text-transform: uppercase">h</strong>ow to invest.</p>
+    <p>→ Learn cutting edge technologies here. Understand each and everything <strong style="text-transform: uppercase">s</strong>tep by <strong style="text-transform: uppercase">s</strong>tep.</p>
+    <p>→ Learn and implement <strong style="text-transform: uppercase">t</strong>echnology and use them in your <strong style="text-transform: uppercase">i</strong>nvestment journey regularly.</p>
 </div>
         
 <div class="content-box">
@@ -23,7 +23,7 @@
 </div>
 
 <div class="content-box">
-{% if not kite_login %}
+    {% if not kite_login %}
     <p><a href="{{ html_data['login_url'] }}">Click Here</a> to login to Kite-Connect</p>
     {% else %}
     <p>Login to Kite-Connect is successful</p>

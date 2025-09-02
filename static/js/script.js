@@ -6,9 +6,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtn = document.querySelector('.btn-login');
     const signupBtn = document.querySelector('.btn-signup');
 
+    // profile drop-down
     const profileImg = document.getElementById('profileImg');
     const dropdownMenu = document.getElementById('dropdownMenu');
     
+    // Get modal elements
+    const loginModal = document.getElementById('loginModal');
+    const signupModal = document.getElementById('signupModal');
+    // const loginBtn = document.getElementById('loginBtn');
+    // const signupBtn = document.getElementById('signupBtn');
+    // const logoutBtn = document.getElementById('logoutBtn');
+    // const profileImg = document.getElementById('profileImg');
+    const closeLogin = document.getElementById('closeLogin');
+    const closeSignup = document.getElementById('closeSignup');
+    // const submitLogin = document.getElementById('submitLogin');
+    // const submitSignup = document.getElementById('submitSignup');
+    const closeButtons = document.querySelectorAll('.close-btn');
     
     // Toggle sidebar
     hamburger.addEventListener('click', function() {
@@ -93,14 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
         dropdownMenu.classList.toggle('active');
     });
-    
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
         if (!profileImg.contains(e.target) && !dropdownMenu.contains(e.target)) {
             dropdownMenu.classList.remove('active');
         }
     });
-    
     // Close dropdown when a menu item is clicked
     const menuItems = dropdownMenu.querySelectorAll('a');
     menuItems.forEach(item => {
@@ -108,4 +119,107 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdownMenu.classList.remove('active');
         });
     });
+
+    
+    // Show login modal
+    loginBtn.addEventListener('click', function() {
+        loginModal.style.display = 'flex';
+    });
+    
+    // Show signup modal
+    signupBtn.addEventListener('click', function() {
+        signupModal.style.display = 'flex';
+    });
+    
+    // Close modals
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+            signupModal.style.display = 'none';
+        });
+    });
+    
+    closeLogin.addEventListener('click', function() {
+        loginModal.style.display = 'none';
+    });
+    
+    closeSignup.addEventListener('click', function() {
+        signupModal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+        if (event.target === signupModal) {
+            signupModal.style.display = 'none';
+        }
+    });
+    
+    // // Form submission
+    // submitLogin.addEventListener('click', function() {
+    //     const email = document.getElementById('loginEmail').value;
+    //     const password = document.getElementById('loginPassword').value;
+        
+    //     if (email && password) {
+    //         // Simulate login success
+    //         alert('Login successful! In a real app, this would connect to your backend.');
+    //         loginModal.style.display = 'none';
+            
+    //         // Update UI for logged in state
+    //         loginBtn.style.display = 'none';
+    //         signupBtn.style.display = 'none';
+    //         logoutBtn.style.display = 'block';
+    //         profileImg.style.display = 'block';
+    //     } else {
+    //         alert('Please fill in all fields');
+    //     }
+    // });
+    
+    // submitSignup.addEventListener('click', function() {
+    //     const name = document.getElementById('signupName').value;
+    //     const email = document.getElementById('signupEmail').value;
+    //     const password = document.getElementById('signupPassword').value;
+    //     const confirmPassword = document.getElementById('signupConfirmPassword').value;
+        
+    //     if (password !== confirmPassword) {
+    //         alert('Passwords do not match');
+    //         return;
+    //     }
+        
+    //     if (name && email && password) {
+    //         // Simulate signup success
+    //         alert('Account created successfully! In a real app, this would connect to your backend.');
+    //         signupModal.style.display = 'none';
+            
+    //         // Update UI for logged in state
+    //         loginBtn.style.display = 'none';
+    //         signupBtn.style.display = 'none';
+    //         logoutBtn.style.display = 'block';
+    //         profileImg.style.display = 'block';
+    //     } else {
+    //         alert('Please fill in all fields');
+    //     }
+    // });
+    
+    // // Logout functionality
+    // logoutBtn.addEventListener('click', function() {
+    //     // Simulate logout
+    //     alert('Logged out successfully');
+        
+    //     // Update UI for logged out state
+    //     loginBtn.style.display = 'block';
+    //     signupBtn.style.display = 'block';
+    //     logoutBtn.style.display = 'none';
+    //     profileImg.style.display = 'none';
+    // });
+    
+    // // Social login buttons
+    // document.querySelectorAll('.social-btn').forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         const platform = this.querySelector('i').classList[1];
+    //         alert(`In a real app, this would redirect to ${platform} authentication`);
+    //     });
+    // });
 });
