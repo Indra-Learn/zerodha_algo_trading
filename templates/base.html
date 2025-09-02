@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="logo-section">
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <a href="{{ url_for('home') }}">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Company Logo" onerror="this.style.display='none'">
+                TheDataFestAI
+            </div>
+            </a>
+            <div class="menu-items">
+                <a href="{{ url_for('trade') }}" class="{{ 'active' if active_page == 'trade' }}">Trade</a>
+                <a href="{{ url_for('ticker') }}" class="{{ 'active' if active_page == 'ticker' }}">Ticker</a>
+                <a href="#">Products</a>
+                <a href="#">Services</a>
+            </div>
+        </div>
+        
+        <div class="auth-section">
+            <!-- {% if not kite_login %} -->
+            <a href="#" class="btn btn-login">Login</a>
+            <a href="#" class="btn btn-signup">Sign Up</a>
+            <!-- {% else %} -->
+            <a href="#" class="btn btn-logout" style="display: none;">Logout</a>
+            <div class="profile-container">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" 
+                    alt="Profile" class="profile-img" id="profileImg">
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fas fa-credit-card"></i> Billing</a></li>
+                        <div class="divider"></div>
+                        <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- {% endif %} -->
+        </div>
+    </nav>
+
+    <!-- Ticker Bar (visible on Ticker page) -->
+    {% if active_page == 'ticker' %}
+    <div class="ticker-container">
+        <div class="ticker">
+            <div class="ticker-item">
+                <span class="symbol">AAPL</span>
+                <span class="price">$175.34</span>
+                <span class="change">+1.2%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="symbol">MSFT</span>
+                <span class="price">$337.69</span>
+                <span class="change">+0.8%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="symbol">GOOGL</span>
+                <span class="price">$139.93</span>
+                <span class="change negative">-0.5%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="symbol">AMZN</span>
+                <span class="price">$145.18</span>
+                <span class="change">+2.1%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="symbol">TSLA</span>
+                <span class="price">$240.45</span>
+                <span class="change negative">-1.7%</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ url_for('trade') }}"><i class="fas fa-exchange-alt"></i> Trade</a></li>
+            <li><a href="{{ url_for('ticker') }}"><i class="fas fa-chart-line"></i> Ticker</a></li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-box"></i> Products</a>
+                <ul class="submenu">
+                    <li><a href="#">Web Apps</a></li>
+                    <li><a href="#">Mobile Apps</a></li>
+                    <li><a href="#">Desktop Software</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-cogs"></i> Services</a>
+                <ul class="submenu">
+                    <li><a href="#">Web Development</a></li>
+                    <li><a href="#">App Development</a></li>
+                    <li><a href="#">Cloud Solutions</a></li>
+                    <li><a href="#">Consulting</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-info-circle"></i> About Us</a>
+                <ul class="submenu">
+                    <li><a href="#">Company History</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="fas fa-phone"></i> Contact</a></li>
+            <li><a href="#"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="#"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="content">
+        {% block content %}
+
+        {% endblock %}
+        
+        
+        {% if active_page == 'trade' %}
+        <div class="content-box">
+            <h2>Trading Interface</h2>
+            <p>This would be your trading platform interface with charts, order forms, and portfolio information.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

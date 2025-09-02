@@ -1,0 +1,5 @@
+{
+    "zerodha":{
+        "orderType": ["regular orders", "after market orders", "cover orders", "iceberg orders"]
+    }
+}
