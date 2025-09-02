@@ -5,29 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoutBtn = document.querySelector('.btn-logout');
     const loginBtn = document.querySelector('.btn-login');
     const signupBtn = document.querySelector('.btn-signup');
+
     const profileImg = document.getElementById('profileImg');
     const dropdownMenu = document.getElementById('dropdownMenu');
-
-    // Toggle dropdown when profile image is clicked
-    profileImg.addEventListener('click', function(e) {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('active');
-    });
     
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!profileImg.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            dropdownMenu.classList.remove('active');
-        }
-    });
-    
-    // Close dropdown when a menu item is clicked
-    const menuItems = dropdownMenu.querySelectorAll('a');
-    menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            dropdownMenu.classList.remove('active');
-        });
-    });
     
     // Toggle sidebar
     hamburger.addEventListener('click', function() {
@@ -106,4 +87,25 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     initTicker();
+    
+    // Toggle dropdown when profile image is clicked
+    profileImg.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('active');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!profileImg.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.remove('active');
+        }
+    });
+    
+    // Close dropdown when a menu item is clicked
+    const menuItems = dropdownMenu.querySelectorAll('a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            dropdownMenu.classList.remove('active');
+        });
+    });
 });
