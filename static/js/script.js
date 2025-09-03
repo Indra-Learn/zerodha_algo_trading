@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.overlay');
-    const logoutBtn = document.querySelector('.btn-logout');
+    // const logoutBtn = document.querySelector('.btn-logout');
     const loginBtn = document.querySelector('.btn-login');
     const signupBtn = document.querySelector('.btn-signup');
 
@@ -106,12 +106,14 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
         dropdownMenu.classList.toggle('active');
     });
+    
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
         if (!profileImg.contains(e.target) && !dropdownMenu.contains(e.target)) {
             dropdownMenu.classList.remove('active');
         }
     });
+    
     // Close dropdown when a menu item is clicked
     const menuItems = dropdownMenu.querySelectorAll('a');
     menuItems.forEach(item => {
@@ -157,69 +159,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // // Form submission
-    // submitLogin.addEventListener('click', function() {
-    //     const email = document.getElementById('loginEmail').value;
-    //     const password = document.getElementById('loginPassword').value;
-        
-    //     if (email && password) {
-    //         // Simulate login success
-    //         alert('Login successful! In a real app, this would connect to your backend.');
-    //         loginModal.style.display = 'none';
-            
-    //         // Update UI for logged in state
-    //         loginBtn.style.display = 'none';
-    //         signupBtn.style.display = 'none';
-    //         logoutBtn.style.display = 'block';
-    //         profileImg.style.display = 'block';
-    //     } else {
-    //         alert('Please fill in all fields');
-    //     }
-    // });
     
-    // submitSignup.addEventListener('click', function() {
-    //     const name = document.getElementById('signupName').value;
-    //     const email = document.getElementById('signupEmail').value;
-    //     const password = document.getElementById('signupPassword').value;
-    //     const confirmPassword = document.getElementById('signupConfirmPassword').value;
-        
-    //     if (password !== confirmPassword) {
-    //         alert('Passwords do not match');
-    //         return;
-    //     }
-        
-    //     if (name && email && password) {
-    //         // Simulate signup success
-    //         alert('Account created successfully! In a real app, this would connect to your backend.');
-    //         signupModal.style.display = 'none';
-            
-    //         // Update UI for logged in state
-    //         loginBtn.style.display = 'none';
-    //         signupBtn.style.display = 'none';
-    //         logoutBtn.style.display = 'block';
-    //         profileImg.style.display = 'block';
-    //     } else {
-    //         alert('Please fill in all fields');
-    //     }
-    // });
-    
-    // // Logout functionality
-    // logoutBtn.addEventListener('click', function() {
-    //     // Simulate logout
-    //     alert('Logged out successfully');
-        
-    //     // Update UI for logged out state
-    //     loginBtn.style.display = 'block';
-    //     signupBtn.style.display = 'block';
-    //     logoutBtn.style.display = 'none';
-    //     profileImg.style.display = 'none';
-    // });
-    
-    // // Social login buttons
-    // document.querySelectorAll('.social-btn').forEach(button => {
-    //     button.addEventListener('click', function() {
-    //         const platform = this.querySelector('i').classList[1];
-    //         alert(`In a real app, this would redirect to ${platform} authentication`);
-    //     });
-    // });
 });

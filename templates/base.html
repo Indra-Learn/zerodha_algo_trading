@@ -23,10 +23,54 @@
             </div>
             </a>
             <div class="menu-items">
-                <a href="{{ url_for('trade') }}" class="{{ 'active' if active_page == 'trade' }}">Trade</a>
-                <a href="{{ url_for('ticker') }}" class="{{ 'active' if active_page == 'ticker' }}">Ticker</a>
-                <a href="#">Products</a>
-                <a href="#">Services</a>
+                <!-- <a href="{{ url_for('trade') }}" class="{{ 'active' if active_page == 'trade' }}">Trade</a>
+                <a href="{{ url_for('ticker') }}" class="{{ 'active' if active_page == 'ticker' }}">Ticker</a> -->
+
+                <!-- Products & Services Dropdown -->
+                <div class="dropdown">
+                    <div class="dropdown-toggle">
+                        Products & Services <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu" style="width: 300px;">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Market Analytics</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Algo Trading</span>
+                        </a>
+                        <div class="divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-database"></i>
+                            <span>Data Engg & Analytics</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cloud"></i>
+                            <span>Cloud Services</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-brain"></i>
+                            <span>AI/ML Solutions</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Dev-Ops & Security</span>
+                        </a>
+                        <div class="divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cogs"></i>
+                            <span>Consulting</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-handshake"></i>
+                            <span>Support</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="#">Docs & APIs</a>
+                <a href="#">Pricing</a>
+                <a href="#">Company</a>
             </div>
         </div>
         
