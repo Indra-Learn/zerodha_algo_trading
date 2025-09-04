@@ -70,7 +70,7 @@
                 </div>
                 <a href="#">Docs & APIs</a>
                 <a href="#">Pricing</a>
-                <a href="#">Company</a>
+                <a href="#">Blog</a>
             </div>
         </div>
         
@@ -82,6 +82,7 @@
                 <img src="{{ url_for('static', filename='images/profile_img.png') }}"
                     alt="Profile" class="profile-img" id="profileImg">
                 <div class="dropdown-menu" id="dropdownMenu">
+                    {% if html_data["username"] %}
                     <ul>
                         <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
@@ -89,6 +90,11 @@
                         <div class="divider"></div>
                         <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
+                    {% else %}
+                    <ul>
+                        <li><p style="color: blue; padding: 5px;">Please Login</p></li>
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>
