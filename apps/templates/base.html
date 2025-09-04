@@ -16,15 +16,14 @@
                 <div></div>
                 <div></div>
             </div>
-            <a href="{{ url_for('home') }}">
+            <a href="{{ url_for('home.home') }}">
             <div class="logo">
                 <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Company Logo" onerror="this.style.display='none'">
                 TheDataFestAI
             </div>
             </a>
             <div class="menu-items">
-                <!-- <a href="{{ url_for('trade') }}" class="{{ 'active' if active_page == 'trade' }}">Trade</a>
-                <a href="{{ url_for('ticker') }}" class="{{ 'active' if active_page == 'ticker' }}">Ticker</a> -->
+                <!--<a href="{{ url_for('home.ticker') }}" class="{{ 'active' if active_page == 'ticker' }}">Ticker</a>-->
 
                 <!-- Products & Services Dropdown -->
                 <div class="dropdown">
@@ -88,7 +87,7 @@
                         <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
                         <li><a href="#"><i class="fas fa-credit-card"></i> Billing</a></li>
                         <div class="divider"></div>
-                        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        <li><a href="{{ url_for('home.logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                     {% else %}
                     <ul>
@@ -108,7 +107,7 @@
                 <button class="close-btn">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+                <form id="loginForm" method="POST" action="{{ url_for('home.login') }}">
                     <div class="form-group">
                         <label for="loginEmail">Email Address</label>
                         <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter your email" required>
@@ -227,9 +226,9 @@
     <!-- Sidebar Menu -->
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="{{ url_for('trade') }}"><i class="fas fa-exchange-alt"></i> Trade</a></li>
-            <li><a href="{{ url_for('ticker') }}"><i class="fas fa-chart-line"></i> Ticker</a></li>
+            <li><a href="{{ url_for('home.home') }}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ url_for('home.trade') }}"><i class="fas fa-exchange-alt"></i> Trade</a></li>
+            <li><a href="{{ url_for('home.ticker') }}"><i class="fas fa-chart-line"></i> Ticker</a></li>
             <li class="has-submenu">
                 <a href="#"><i class="fas fa-box"></i> Products</a>
                 <ul class="submenu">
