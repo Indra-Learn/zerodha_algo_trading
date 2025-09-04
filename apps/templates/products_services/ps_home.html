@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+<!-- Title -->
+{% block title %}Products & Services{% endblock %}
+
+
+{% block content %}
+<div class="content-box">
+    {% if not kite_login %}
+    <p><a href="{{ html_data['login_url'] }}">Click Here</a> to login to Kite-Connect</p>
+    {% else %}
+    <p>Login to Kite-Connect is successful</p>
+    {% endif %}
+
+    <table>
+        <tr>
+            <th>Login Url</th>
+            <th>Redirect Url</th>
+            <th>Console Url</th>
+        </tr>
+        <tr>
+            <td>{{ html_data["login_url"] }}</td>
+            <td>{{ html_data["redirect_url"] }}</td>
+            <td>{{ html_data["console_url"] }}</td>
+        </tr>
+    </table>
+    </br>
+    <table>
+        <caption>Zerodha User Details</caption>
+        <thead>
+            <tr>
+                <th>Broker</th>
+                <th>User Type</th>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>User Image</th>
+                <th>User ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ html_data["kite_broker"] }}</td>
+                <td>{{ html_data["kite_user_type"] }}</td>
+                <td>{{ html_data["kite_user_name"] }}</td>
+                <td>{{ html_data["kite_email"] }}</td>
+                <td><img src="{{ html_data['kite_avatar_url'] }}" alt="Profile Image" style="width:30px;height:30px;"></td>
+                <td>{{ html_data["kite_user_id"] }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

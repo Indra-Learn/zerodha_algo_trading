@@ -15,7 +15,9 @@ def create_app():
     
     # Register blueprints
     from . import home, blogs
+    from .products_services import portfolio_tracker
     app.register_blueprint(home.home_bp)
+    app.register_blueprint(portfolio_tracker.portfolio_tracker_bp)
     app.register_blueprint(blogs.blogs_bp)
     
     return app

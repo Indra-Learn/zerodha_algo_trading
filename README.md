@@ -1,6 +1,10 @@
 # zerodha_algo_trading
 zerodha algo trading
 
+## Pre-requisite:
+1. Create `Kite-Connect` Api credentials [Follow Here]("#")
+2. Create `Neo4j` Graph database [Follow Here]("#")
+
 
 ## How To Use:
 1. Clone the Git Repo -
@@ -22,7 +26,7 @@ zerodha algo trading
 4. Run the Flask app from VS Code terminal - 
     ```shell
     # do not use in production
-    flask --app app run --host=0.0.0.0 --port=8080 --debug
+    flask --app apps run --host=0.0.0.0 --port=8080 --debug
     ```
 
 ## Reference Docs:

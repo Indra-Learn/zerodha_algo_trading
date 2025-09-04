@@ -39,6 +39,10 @@
                             <i class="fas fa-bolt"></i>
                             <span>Algo Trading</span>
                         </a>
+                        <a href="{{ url_for('portfolio_tracker.portfolio_tracker_home')}}" class="dropdown-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Portfolio Tracker</span>
+                        </a>
                         <div class="divider"></div>
                         <a href="#" class="dropdown-item">
                             <i class="fas fa-database"></i>
@@ -69,13 +73,15 @@
                 </div>
                 <a href="#">Docs & APIs</a>
                 <a href="#">Pricing</a>
-                <a href="#">Blog</a>
+                <a href="{{ url_for('blogs.show_content') }}">Blog</a>
             </div>
         </div>
         
         <div class="auth-section">
+            {% if not html_data["username"] %}
             <a href="#" class="btn btn-login">Login</a>
             <a href="#" class="btn btn-signup">Sign Up</a>
+            {% endif %}
             <!-- <a href="#" class="btn btn-logout" style="display: none;">Logout</a> -->
             <div class="profile-container">
                 <img src="{{ url_for('static', filename='images/profile_img.png') }}"
@@ -227,14 +233,13 @@
     <div class="sidebar">
         <ul class="sidebar-menu">
             <li><a href="{{ url_for('home.home') }}"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="{{ url_for('home.trade') }}"><i class="fas fa-exchange-alt"></i> Trade</a></li>
             <li><a href="{{ url_for('home.ticker') }}"><i class="fas fa-chart-line"></i> Ticker</a></li>
             <li class="has-submenu">
                 <a href="#"><i class="fas fa-box"></i> Products</a>
                 <ul class="submenu">
                     <li><a href="#">Ticker</a></li>
                     <li><a href="#">Algo Trade</a></li>
-                    <li><a href="#">Analysis Portfolio</a></li>
+                    <li><a href="#">Portfolio Tracker</a></li>
                 </ul>
             </li>
             <li class="has-submenu">
