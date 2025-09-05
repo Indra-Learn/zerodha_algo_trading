@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 parentdir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir))
 sys.path.append(parentdir)
 
-# from apps.products_services import products_services_bp
+from apps.products_services import products_services_bp
 from config import dev_config
 from utils.tdf_admin import get_kite_secret
 
@@ -28,7 +28,7 @@ portfolio_tracker_bp = Blueprint('portfolio_tracker', __name__,
                 static_folder='static',
                 url_prefix='/portfolio_tracker')
 
-@portfolio_tracker_bp.route("/", methods=['GET'])
+@products_services_bp.route("/", methods=['GET'])
 def portfolio_tracker_home():
     kite_login = False
     html_data={}
