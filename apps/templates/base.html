@@ -32,7 +32,7 @@
                         Products & Services <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="dropdown-menu" style="width: 300px;">
-                        <a href="#" class="dropdown-item">
+                        <a href="{{ url_for('products_services.market_analysis.market_analysis_home') }}" class="dropdown-item">
                             <i class="fas fa-chart-line"></i>
                             <span>Market Analytics</span>
                         </a>
@@ -40,7 +40,7 @@
                             <i class="fas fa-bolt"></i>
                             <span>Algo Trading</span>
                         </a>
-                        <a href="{{ url_for('products_services.portfolio_tracker.portfolio_tracker_home')}}" class="dropdown-item">
+                        <a href="{{ url_for('products_services.portfolio_tracker.portfolio_tracker_home') }}" class="dropdown-item">
                             <i class="fas fa-bolt"></i>
                             <span>Portfolio Tracker</span>
                         </a>
@@ -85,7 +85,7 @@
             {% endif %}
             <!-- <a href="#" class="btn btn-logout" style="display: none;">Logout</a> -->
             <div class="profile-container">
-                <img src="{{ url_for('static', filename='images/profile_img.png') }}"
+                <img src="{% if html_data['username'] %}{{ url_for('static', filename='images/profile_img.png') }}{% endif %}"
                     alt="Profile" class="profile-img" id="profileImg">
                 <div class="dropdown-menu" id="dropdownMenu">
                     {% if html_data["username"] %}

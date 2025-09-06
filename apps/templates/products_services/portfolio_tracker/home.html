@@ -40,15 +40,6 @@
                 <td>-</td>
                 <td>-</td>
             </tr>
-            <tr>
-                <td>{{ html_data["kite_broker"] }}</td>
-                <td>Connected</td>
-                <td>{{ html_data["kite_user_type"] }}</td>
-                <td>{{ html_data["kite_user_name"] }}</td>
-                <td>{{ html_data["kite_email"] }}</td>
-                <td><img src="{{ html_data['kite_avatar_url'] }}" alt="Profile Image" style="width:30px;height:30px;"></td>
-                <td>{{ html_data["kite_user_id"] }}</td>
-            </tr>
             {% else %}
             <tr>
                 <td>{{ html_data["kite_broker"] }}</td>
@@ -65,7 +56,7 @@
 </div>
 
 <div class="content-box">
-    {{ mf_df }}
+    
 </div>
 
 {% endblock %}

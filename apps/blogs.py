@@ -14,6 +14,7 @@ blogs_bp = Blueprint('blogs', __name__,
 def get_md_files():
     """Scan learning_md directory and return structured content"""
     base_path = Path('apps/blogs')
+    print(f"{base_path=}")
     content_structure = {}
     
     for category in base_path.iterdir():

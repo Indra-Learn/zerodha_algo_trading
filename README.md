@@ -31,7 +31,7 @@ zerodha algo trading
 
 ## Reference Docs:
 1. Zerodha Kite-Connect Api: https://zerodha.com/products/api/
-2. Kite-Connect Api(Python) Doc: https://kite.trade/docs/connect/v3/sdks/
+2. Kite-Connect Api Doc: https://kite.trade/docs/connect/v3/
 3. Kite-Connect Api(Python) Github: https://github.com/zerodha/pykiteconnect
 
 ## Algo Trading:

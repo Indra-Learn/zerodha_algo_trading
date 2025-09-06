@@ -1,5 +1,6 @@
 import os, sys
 from flask import Flask
+from datetime import timedelta
 
 parentdir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(parentdir)
@@ -10,6 +11,7 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY = os.urandom(24),  # required for flask-session
+        PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
         # DATABASE = os.path.join(app.instance_path, 'apps.sqlite')
     )
     
