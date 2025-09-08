@@ -29,4 +29,4 @@ app = create_app()
 if __name__ == "__main__":
     HOST = dev_config["host"]
     PORT = dev_config["port"]
-    app.run(host=HOST, port=PORT, debug=True)
+    app.run(host=HOST, port=PORT, ssl_context='adhoc')

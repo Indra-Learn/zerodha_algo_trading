@@ -48,7 +48,6 @@ def _get_data_from_kite_api(api_endpoint_url):
         logging.info(f"Calling Kite API: {full_kite_url}..")
         response.raise_for_status()
         data = response.json()
-        print(f"{data=}")
     return data["data"]
 
 
