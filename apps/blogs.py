@@ -1,7 +1,10 @@
-import os
+import os, sys
 import markdown
 from flask import Blueprint, render_template, abort
 from pathlib import Path
+
+parentdir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(parentdir)
 
 blogs_bp = Blueprint('blogs', __name__, 
                     template_folder='templates',
@@ -11,6 +14,7 @@ blogs_bp = Blueprint('blogs', __name__,
 def get_md_files():
     """Scan learning_md directory and return structured content"""
     base_path = Path('apps/blogs')
+    print(f"{base_path=}")
     content_structure = {}
     
     for category in base_path.iterdir():

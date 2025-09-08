@@ -1,6 +1,10 @@
 # zerodha_algo_trading
 zerodha algo trading
 
+## Pre-requisite:
+1. Create `Kite-Connect` Api credentials [Follow Here]("#")
+2. Create `Neo4j` Graph database [Follow Here]("#")
+
 
 ## How To Use:
 1. Clone the Git Repo -
@@ -17,17 +21,18 @@ zerodha algo trading
     ```shell
     python -m venv .venv
     .venv\Scripts\activate
+    # source .venv/bin/activate
     pip install -r requirements.txt
     ```
 4. Run the Flask app from VS Code terminal - 
     ```shell
     # do not use in production
-    flask --app app run --host=0.0.0.0 --port=8080 --debug
+    flask --app apps run --host=0.0.0.0 --port=8080 --debug
     ```
 
 ## Reference Docs:
 1. Zerodha Kite-Connect Api: https://zerodha.com/products/api/
-2. Kite-Connect Api(Python) Doc: https://kite.trade/docs/connect/v3/sdks/
+2. Kite-Connect Api Doc: https://kite.trade/docs/connect/v3/
 3. Kite-Connect Api(Python) Github: https://github.com/zerodha/pykiteconnect
 
 ## Algo Trading:

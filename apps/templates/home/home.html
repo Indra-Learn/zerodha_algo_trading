@@ -29,10 +29,10 @@
 
 <div class="content-box">
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-md-8" style="flex: 0 0 60%;">
             <div class="">
-                <h2>Welcome to TheDataFestAI</h2></br>
-                <p style="background-color: #dbe91b;">→ Learn cutting edge technologies here. Understand each and everything <strong style="text-transform: uppercase">s</strong>tep by <strong style="text-transform: uppercase">s</strong>tep.</p>
+                <h2>Welcome to TheDataFestAI:</h2></br>
+                <p style="background-color: #dbe91b;">→ Learn cutting edge technologies quickly. Understand each & everything <strong style="text-transform: uppercase">s</strong>tep by <strong style="text-transform: uppercase">s</strong>tep.</p>
                 <div style="padding-left: 5rex;">
                     <ul>
                         <li>Learn Data Engineering with implementation of Multi-Cloud or Hybrid Architechture.</li>
@@ -40,7 +40,7 @@
                         <li>Learn AI/ML and Understand the power of GenAI and Learn how to use LLM.</li>
                     </ul>
                 </div>
-                <p style="background-color: #dbe91b;">→ This is a place where you can learn <strong style="text-transform: uppercase">w</strong>hy to invest, <strong style="text-transform: uppercase">w</strong>here to invest and <strong style="text-transform: uppercase">h</strong>ow to invest.</p>
+                <p style="background-color: #dbe91b;">→ You can learn <strong style="text-transform: uppercase">w</strong>hy to invest, <strong style="text-transform: uppercase">w</strong>here to invest and <strong style="text-transform: uppercase">h</strong>ow to invest.</p>
                 <div style="padding-left: 5rex;">
                     <ul>
                         <li>Understand multiple and different types of Savings & Investments options.</li>
@@ -51,7 +51,7 @@
                 <p style="background-color: #dbe91b;">→ Learn and implement <strong style="text-transform: uppercase">t</strong>echnology and use them in your <strong style="text-transform: uppercase">i</strong>nvestment journey regularly.</p>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4" style="flex: 0 0 40%;">
             <div class="">
                 <h2>Features Included:</h2></br>
                 <ol>
@@ -63,53 +63,7 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="content-box">
-    {% if not kite_login %}
-    <p><a href="{{ html_data['login_url'] }}">Click Here</a> to login to Kite-Connect</p>
-    {% else %}
-    <p>Login to Kite-Connect is successful</p>
-    {% endif %}
-
-    <table>
-        <tr>
-            <th>Login Url</th>
-            <th>Redirect Url</th>
-            <th>Console Url</th>
-        </tr>
-        <tr>
-            <td>{{ html_data["login_url"] }}</td>
-            <td>{{ html_data["redirect_url"] }}</td>
-            <td>{{ html_data["console_url"] }}</td>
-        </tr>
-    </table>
-    </br>
-    <table>
-        <caption>Zerodha User Details</caption>
-        <thead>
-            <tr>
-                <th>Broker</th>
-                <th>User Type</th>
-                <th>User Name</th>
-                <th>User Email</th>
-                <th>User Image</th>
-                <th>User ID</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ html_data["kite_broker"] }}</td>
-                <td>{{ html_data["kite_user_type"] }}</td>
-                <td>{{ html_data["kite_user_name"] }}</td>
-                <td>{{ html_data["kite_email"] }}</td>
-                <td><img src="{{ html_data['kite_avatar_url'] }}" alt="Profile Image" style="width:30px;height:30px;"></td>
-                <td>{{ html_data["kite_user_id"] }}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-        
+</div>       
 {% endblock %}
 
     
