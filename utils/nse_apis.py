@@ -27,19 +27,76 @@ class NSE_APIS:
     def get_large_deal_data(self):
         data = self._get_data("api/snapshot-capital-market-largedeal")
         df = pd.DataFrame(data.get("BULK_DEALS_DATA"))
-        grouped_df = df.groupby(["date", "symbol", "name", "buySell"]) \
-                        .agg({"qty":[sum], "watp":[max, min]})
+        df[["qty"]] = df[["qty"]].astype(int)
+        df[["watp"]] = df[["watp"]].astype(float)
+        grouped_df = df.groupby(["symbol", "name", "buySell"]) \
+                        .agg({"qty":["sum"], "watp":["min", "max"]})
         grouped_df.reset_index(inplace=True)
-        # .sort_values('qty', ascending=False)
-        # df["max_buy"] = 
-        # df["min_sell"] = 
-        # df = df.groupby(level=0, group_keys=False).apply(lambda g:g.sort_values("qty", ascending=False))
-        return grouped_df
+        grouped_df.columns = ["_".join(i) for i in grouped_df.columns]
+        grouped_df_buy = grouped_df[grouped_df["buySell_"] == "BUY"].rename(columns={"symbol_": "symbol",
+                                                                                     "name_": "name",
+                                                                                     "qty_sum": "buy_qty_sum",
+                                                                                     "watp_min": "buy_watp_min",
+                                                                                     "watp_max": "buy_watp_max"})
+        grouped_df_sell = grouped_df[grouped_df["buySell_"] == "SELL"].rename(columns={"symbol_": "symbol",
+                                                                                       "name_": "name",
+                                                                                       "qty_sum": "sell_qty_sum",
+                                                                                       "watp_min": "sell_watp_min",
+                                                                                       "watp_max": "sell_watp_max"})
+        merged_df = pd.merge(grouped_df_buy, grouped_df_sell, on=['symbol', 'name'], how='outer')
+        merged_df.drop(columns=["buySell__x", "buySell__y"], inplace=True)
+        merged_df.reset_index(drop=True, inplace=True)
+        return merged_df
+    
+    def get_fii_dii_data(self):
+        data = self._get_data("api/fiidiiTradeReact")
+        df = pd.DataFrame(data)
+        return df
 
+    def get_daily_gainers_data(self):
+        data = self._get_data("api/live-analysis-variations?index=gainers")
+        legends = [i[0] for i in data.get("legends")]
+        all_gainers_df_list = []
+        for i in legends:
+            gainers = data.get(i).get("data")
+            gainers_df = pd.DataFrame(gainers)
+            gainers_df["legends"] = i
+            all_gainers_df_list.append(gainers_df)
+        all_gainers_df = pd.concat(all_gainers_df_list)
+        all_gainers_df.drop_duplicates(subset=["symbol"], keep='first', inplace=True)
+        all_gainers_df.sort_values(axis=0, by=["perChange", "trade_quantity"], ascending=False, inplace=True)
+        all_gainers_df.reset_index(drop=True, inplace=True)
+        return all_gainers_df
 
+    def get_daily_loosers_data(self):
+        data = self._get_data("api/live-analysis-variations?index=loosers")
+        legends = [i[0] for i in data.get("legends")]
+        all_loosers_df_list = []
+        for i in legends:
+            loosers = data.get(i).get("data")
+            loosers_df = pd.DataFrame(loosers)
+            loosers_df["legends"] = i
+            all_loosers_df_list.append(loosers_df)
+        all_loosers_df = pd.concat(all_loosers_df_list)
+        all_loosers_df.drop_duplicates(subset=["symbol"], keep='first', inplace=True)
+        all_loosers_df.sort_values(axis=0, by=["perChange", "trade_quantity"], ascending=False, inplace=True)
+        all_loosers_df.reset_index(drop=True, inplace=True)
+        return all_loosers_df
+    
+    # https://www.nseindia.com/api/marketStatus
+    def get_etf_data(self):
+        data = self._get_data(f"api/etf")
+        df = pd.DataFrame(data.get("data"))
+        return df
+
+    def get_historic_daily_data(self, symbol, from_dt, to_dt, series="EQ"):
+        data = self._get_data(f"api/historical/cm/equity?symbol={symbol}&series=[%22{series}%22]&from={from_dt}&to={to_dt}")
+        df = pd.DataFrame(data.get("data"))
+        return df
 
 if __name__ == "__main__":
     nse_api = NSE_APIS()
     # data = nse_api._get_data("api/snapshot-capital-market-largedeal")
-    data = nse_api.get_large_deal_data()
-    print(f"data={data}")
+    # data = nse_api.get_historic_daily_data(symbol="BLUESTONE", from_dt="10-09-2024", to_dt="10-09-2025")
+    data = nse_api.get_etf_data()
+    print(f"{data}")
