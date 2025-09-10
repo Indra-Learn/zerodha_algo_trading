@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 class NSE_APIS:
     base_nse_url = "https://www.nseindia.com/"
@@ -94,9 +96,78 @@ class NSE_APIS:
         df = pd.DataFrame(data.get("data"))
         return df
 
+
+def create_candlestick_chart(df, title):
+    """Create a candlestick chart with volume and moving averages"""
+
+    """Calculate moving averages"""
+    df['3MRA'] = df['CH_CLOSING_PRICE'].rolling(window=3).mean()
+    df['7MRA'] = df['CH_CLOSING_PRICE'].rolling(window=7).mean()
+    df['21MRA'] = df['CH_CLOSING_PRICE'].rolling(window=21).mean()
+
+    # Create subplots with secondary y-axis for volume
+    fig = make_subplots(
+        rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.05,
+        # subplot_titles=(title, 'Volume'),
+        row_width=[0.1, 0.3]
+    )
+    
+    # Candlestick chart
+    fig.add_trace(
+        go.Candlestick(
+            x=df.index,
+            open=df['CH_OPENING_PRICE'],
+            high=df['CH_TRADE_HIGH_PRICE'],
+            low=df['CH_TRADE_LOW_PRICE'],
+            close=df['CH_CLOSING_PRICE'],
+            name='Price'
+        ),
+        row=1, col=1
+    )
+
+    # Moving averages
+    fig.add_trace(
+        go.Scatter(x=df.index,y=df['3MRA'],name='3MRA',line=dict(color='orange', width=1.5)),row=1, col=1
+    )
+    fig.add_trace(
+        go.Scatter(x=df.index,y=df['7MRA'],name='7MRA',line=dict(color='purple', width=1.5)),row=1, col=1
+    )
+    fig.add_trace(
+        go.Scatter(x=df.index,y=df['21MRA'],name='21MRA',line=dict(color='blue', width=1.5)),row=1, col=1
+    )
+
+    # Volume bars
+    colors = ['red' if row['CH_OPENING_PRICE'] > row['CH_CLOSING_PRICE'] else 'green' for index, row in df.iterrows()]
+    fig.add_trace(
+        go.Bar(
+            x=df.index,
+            y=df['CH_TOTAL_TRADES'],
+            name='Volume',
+            marker_color=colors,
+            opacity=0.5
+        ),
+        row=2, col=1
+    )
+
+    # Update layout
+    fig.update_layout(
+        height=550,
+        width=800,
+        title_text=f"{title}",
+        xaxis_rangeslider_visible=False,
+        template='plotly_dark',  # plotly_white
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=0.8)
+    )
+
+    # Update y-axis labels
+    fig.update_yaxes(title_text="Price", row=1, col=1)
+    fig.update_yaxes(title_text="Volume", row=2, col=1)
+    return fig.to_html(full_html=False)
+
+
 if __name__ == "__main__":
     nse_api = NSE_APIS()
     # data = nse_api._get_data("api/snapshot-capital-market-largedeal")
-    # data = nse_api.get_historic_daily_data(symbol="BLUESTONE", from_dt="10-09-2024", to_dt="10-09-2025")
-    data = nse_api.get_etf_data()
-    print(f"{data}")
+    data = nse_api.get_historic_daily_data(symbol="BLUESTONE", from_dt="10-09-2024", to_dt="10-09-2025")
+    # data = nse_api.get_etf_data()
+    print(f"{data.columns}")

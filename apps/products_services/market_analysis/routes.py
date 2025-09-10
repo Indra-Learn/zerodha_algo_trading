@@ -13,7 +13,7 @@ sys.path.append(parentdir)
 from apps.products_services.market_analysis import market_analysis_bp
 
 from utils.stock_apis import get_mf_instrument, kite_api_key
-from utils.nse_apis import NSE_APIS
+from utils.nse_apis import NSE_APIS, create_candlestick_chart
 from apps.home import login_required
 
 @market_analysis_bp.route("/", methods=['GET'])
@@ -34,3 +34,12 @@ def market_analysis_home():
                                                           escape=False)
             html_data["mf_instrument_html"] = mf_instrument_html
     return render_template("products_services/market_analysis/home.html", html_data=html_data)
+
+
+@market_analysis_bp.route("/report", methods=['GET'])
+def market_analysis_report():
+    html_data = dict()
+    # nse_api = NSE_APIS()
+    # df = nse_api.get_historic_daily_data(symbol="BLUESTONE", from_dt="10-09-2024", to_dt="10-09-2025")
+    # html_data["chart_symbol"] = create_candlestick_chart(df, "BLUESTONE")
+    return render_template("products_services/market_analysis/report.html", html_data=html_data)
