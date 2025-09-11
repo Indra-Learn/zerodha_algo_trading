@@ -1,0 +1,149 @@
+body {
+    overflow-x: hidden;
+    background-color: #f8f9fa;
+}
+
+#sidebar {
+    width: 250px;
+    height: calc(100vh - 60px); /* 100vh;, Subtract navbar height */
+    position: fixed;
+    top: 60px; /* 0;, Position below navbar */
+    left: -250px;
+    z-index: 1020; /* 1000;, Lower than navbar */
+    transition: left 0.3s ease;
+    background-color: #343a40;
+    overflow-y: auto;
+}
+
+#sidebar.show {
+    left: 0;
+}
+#content {
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+    margin-left: 0;
+    padding-top: 80px; /* Account for navbar height */
+}
+
+#content.shifted {
+    margin-left: 250px;
+}
+
+.sidebar-header {
+    padding: 10px;
+    background-color: #212529;
+    font-size: 2ex;
+    color: white;
+}
+.sidebar-menu {
+    padding: 10px 0;
+}
+.sidebar-menu .nav-link {
+    color: #ced4da;
+    padding: 12px 20px;
+    border-bottom: 1px solid #495057;
+}
+.sidebar-menu .nav-link:hover {
+    background-color: #495057;
+    color: white;
+}
+.sidebar-menu .nav-link i {
+    width: 25px;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+.overlay.show {
+    display: block;
+}
+
+.top-navbar {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030; /* 900, Increased z-index to ensure it's above sidebar */
+    padding: 0.5rem 1rem;
+    display: flex;
+    height: 60px; /* Fixed height for navbar */
+}
+         
+.navbar-brand {
+    font-weight: 600;
+    color: #4e73df !important;
+}
+.nav-item.dropdown .dropdown-menu {
+    position: absolute;
+}
+.sidebar-submenu {
+    padding-left: 30px;
+    background-color: #2c3136;
+    display: none;
+}
+.sidebar-submenu.show {
+    display: block;
+}
+.sidebar-submenu .nav-link {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+}
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+.btn-login {
+    background-color: #4e73df;
+    border-color: #4e73df;
+    color: white;
+}
+.btn-login:hover {
+    background-color: #3a56c4;
+    border-color: #3a56c4;
+    color: white;
+}
+.btn-signup {
+    background-color: #36b9cc;
+    border-color: #36b9cc;
+    color: white;
+}
+.btn-signup:hover {
+    background-color: #2ca0b0;
+    border-color: #2ca0b0;
+    color: white;
+}
+@media (max-width: 768px) {
+    #content.shifted {
+        margin-left: 0;
+    }
+    .navbar-nav .btn {
+        margin: 5px 0;
+    }
+}
+.card-dashboard {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    transition: transform 0.3s;
+}
+.card-dashboard:hover {
+    transform: translateY(-5px);
+}
+.dropdown-menu {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    border: none;
+}

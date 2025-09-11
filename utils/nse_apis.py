@@ -51,6 +51,7 @@ class NSE_APIS:
         return merged_df
     
     def get_fii_dii_data(self):
+        # api/fiidiiTradeNse
         data = self._get_data("api/fiidiiTradeReact")
         df = pd.DataFrame(data)
         return df
@@ -168,6 +169,7 @@ def create_candlestick_chart(df, title):
 if __name__ == "__main__":
     nse_api = NSE_APIS()
     # data = nse_api._get_data("api/snapshot-capital-market-largedeal")
-    data = nse_api.get_historic_daily_data(symbol="BLUESTONE", from_dt="10-09-2024", to_dt="10-09-2025")
+    # data = nse_api.get_historic_daily_data(symbol="BLUESTONE", from_dt="10-09-2024", to_dt="10-09-2025")
     # data = nse_api.get_etf_data()
-    print(f"{data.columns}")
+    data = nse_api.get_fii_dii_data()
+    print(f"{data}")
