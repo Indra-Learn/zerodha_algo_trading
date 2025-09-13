@@ -1,0 +1,39 @@
+<!-- Overlay to close sidebar when clicking outside -->
+    <div class="overlay" id="overlay"></div>
+
+<div id="sidebar" class="d-flex flex-column">
+    <!-- Sidebar-Menu Header -->
+    <div class="sidebar-header">
+        <h5>{{ html_data["sidebar_menu_header"] }}</h5>
+    </div>
+
+    <!-- Sidebar-Menu and SubMenu-->
+    <div class="sidebar-menu flex-grow-1">
+        <ul class="nav flex-column">
+        {% for sb_menu in html_data["sidebar"] %}
+            <li class="nav-item">
+            {% if sb_menu.sub_menu|length == 0 %}
+                <a class="nav-link" href="{% if sb_menu.href != '#' %} {{ url_for(sb_menu.href) }} {% else %} # {% endif %}"><i class="{{ sb_menu.icon }}"></i>{{ sb_menu.menu }}</a>
+            {% else %}
+                <!-- Sidebar-Menu-SubMenu -->
+                <a class="nav-link sidebar-dropdown-toggle" href="#" data-target="sidebar_submenu_{{ sb_menu.menu }}">  <!-- href="{{ sb_menu.href }}" -->
+                    <i class="{{ sb_menu.icon }}"></i> {{ sb_menu.menu }}<span class="float-end"><i class="fas fa-chevron-down"></i></span>
+                </a>
+                <ul class="nav flex-column sidebar-submenu" id="sidebar_submenu_{{ sb_menu.menu }}">
+                {% for sb_menu_sub in sb_menu.sub_menu %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% if sb_menu.href != '#' %} {{ url_for(sb_menu_sub.href) }} {% else %} # {% endif %}">{{ sb_menu_sub.name }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Sidebar-Menu-Footer -->
+    <div class="sidebar-footer p-3 border-top border-secondary">
+        <div class="text-muted small">© 2026 TheDataFestAI</div>
+    </div>
+</div>

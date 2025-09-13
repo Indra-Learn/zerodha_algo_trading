@@ -50,10 +50,17 @@ class NSE_APIS:
         merged_df.reset_index(drop=True, inplace=True)
         return merged_df
     
-    def get_fii_dii_data(self):
+    def get_daily_fii_dii_data(self):
         # api/fiidiiTradeNse
+        # cdsl: 
+        #   https://www.cdslindia.com/Publications/ForeignPortInvestor.html
+        #   https://www.cdslindia.com/eservices/publications/fiidaily
+        # nsdl: https://www.fpi.nsdl.co.in/web/Reports/Latest.aspx
         data = self._get_data("api/fiidiiTradeReact")
         df = pd.DataFrame(data)
+        df["category"] = df["category"].apply(lambda x: x.replace("*", "").strip())
+        df[["buyValue", "sellValue", "netValue"]] = df[["buyValue", "sellValue", "netValue"]].astype('float64')
+        df.rename(columns={"category": "Category", "date": "Date","buyValue": "Buy (₹ Cr)", "sellValue": "Sell (₹ Cr)", "netValue": "Net (₹ Cr)"}, inplace=True)
         return df
 
     def get_daily_gainers_data(self):
@@ -86,6 +93,14 @@ class NSE_APIS:
         all_loosers_df.reset_index(drop=True, inplace=True)
         return all_loosers_df
     
+    def get_daily_allIndices_data(self):
+        data = self._get_data("api/allIndices")
+        df = pd.DataFrame(data.get("data"))
+        new_df = df.loc[:, ["index", "open", "high", "low", "last", "advances", "declines", "unchanged", "yearHigh", "yearLow", 
+                            "percentChange", "perChange30d", "perChange365d"]]
+        new_df.columns = [i.capitalize() for i in new_df.columns]
+        return new_df
+
     # https://www.nseindia.com/api/marketStatus
     def get_etf_data(self):
         data = self._get_data(f"api/etf")
