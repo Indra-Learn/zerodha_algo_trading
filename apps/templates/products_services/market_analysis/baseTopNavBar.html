@@ -5,77 +5,29 @@
         <div class="d-flex align-items-center">
             <button class="btn btn-link text-dark me-2" id="sidebarToggle">
                 <i class="fas fa-bars fa-xl"></i>
-            </button>
-            <a class="navbar-brand" href="{{ url_for(html_data.brand.href) }}">{{ html_data["brand"]["name"] }}</a>
+            </button>            
+            <a class="navbar-brand fs-3" href="{{ url_for(html_data.brand.href) }}">{{ html_data["brand"]["name"] }}</a>
         </div>
 
         <!-- Navbar Items (always visible) -->
-        <div class="navbar-collapse">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Products
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="productDropdown">
-                        <li><a class="dropdown-item" href="#">Overview</a></li>
-                        <li><a class="dropdown-item" href="#">Features</a></li>
-                        <li><a class="dropdown-item" href="#">Pricing</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Releases</a></li>
-                        <li><a class="dropdown-item" href="#">API</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="serviceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Services
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
-                        <li><a class="dropdown-item" href="#">Implementation</a></li>
-                        <li><a class="dropdown-item" href="#">Consulting</a></li>
-                        <li><a class="dropdown-item" href="#">Support</a></li>
-                        <li><a class="dropdown-item" href="#">Training</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="docsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Docs
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="docsDropdown">
-                        <li><a class="dropdown-item" href="#">Documentation</a></li>
-                        <li><a class="dropdown-item" href="#">API Reference</a></li>
-                        <li><a class="dropdown-item" href="#">Guides</a></li>
-                        <li><a class="dropdown-item" href="#">Examples</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Company
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="companyDropdown">
-                        <li><a class="dropdown-item" href="#">About Us</a></li>
-                        <li><a class="dropdown-item" href="#">Careers</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Contact</a></li>
-                    </ul>
-                </li>
-            </ul>
-
             <!-- Right side items -->
             <ul class="navbar-nav ms-auto">
+                {% if not html_data["user"] %}
+                <!-- Login/Signup Buttons -->
+                <li class="nav-item">
+                    <div class="d-flex">
+                        <button class="btn btn-login btn-xl me-2">Login</button>
+                        <button class="btn btn-signup btn-xl">Sign Up</button>
+                    </div>
+                </li>
+                {% else %}
+                <!-- User Profile Dropdown -->
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-bell fa-fw"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-envelope fa-fw"></i></a>
                 </li>
-                <!-- Login/Signup Buttons -->
-                <li class="nav-item">
-                    <div class="d-flex">
-                        <button class="btn btn-login btn-sm me-2">Login</button>
-                        <button class="btn btn-signup btn-sm">Sign Up</button>
-                    </div>
-                </li>
-                <!-- User Profile Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://ui-avatars.com/api/?name=John+Doe&background=4e73df&color=ffffff" class="rounded-circle me-2" height="30" alt="User Avatar">
@@ -89,6 +41,7 @@
                         <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2"></i> Logout</a></li>
                     </ul>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>

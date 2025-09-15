@@ -28,6 +28,12 @@ def market_analysis_html_data():
     html_data["current_date"] = get_date_dict().get("cur_date", "Date is missing ..")
 
     # Primary html_data
+    html_data["topnavbar"] = list()
+    html_data["topnavbar"].append({"menu": "Products", "href": "#", "sub_menu": ["Market Analysis", "div", "Others"]})
+    html_data["topnavbar"].append({"menu": "Services", "href": "#", "sub_menu": ["APIs"]})
+    html_data["topnavbar"].append({"menu": "Pricing", "href": "#", "sub_menu": []})
+    html_data["topnavbar"].append({"menu": "Blogs/Docs", "href": "#", "sub_menu": []})
+
     html_data["sidebar"] = list()
     html_data["sidebar"].append({"menu": "Market Trends", "icon": "fas fa-chart-line me-2", "href": "products_services.market_analysis.market_analysis_trends", "sub_menu": []})
     html_data["sidebar"].append({"menu": "Portfolio Utility", "icon": "fas fa-table me-2", "href": "#", "sub_menu": [{"name": "Portfolio Tracker", "href": "#"}, 
@@ -42,7 +48,9 @@ def market_analysis_html_data():
     html_data["sidebar"].append({"menu": "AI Tools", "icon": "fas fa-rocket me-2", "href": "#", "sub_menu": [{"name": "AI ChatBot", "href": "#"}]})
     html_data["sidebar"].append({"menu": "Algo Trading", "icon": "fas fa-robot me-2", "href": "#", "sub_menu": []})
     html_data["sidebar"].append({"menu": "Trading Acronyms", "icon": "fas fa-search me-2", "href": "products_services.market_analysis.trading_acronyms", "sub_menu": []})
-    html_data["sidebar"].append({"menu": "Knowledge / Docs", "icon": "fas fa-file me-2", "href": "#", "sub_menu": []})
+    html_data["sidebar"].append({"menu": "Knowledge / Docs", "icon": "fas fa-file me-2", "href": "products_services.market_analysis.docs", "sub_menu": []})
+    
+    html_data["user"] = None
     return html_data
 
 
@@ -99,3 +107,9 @@ def trading_acronyms():
     html_data["main_content_header"] = "Trading Acronyms"
 
     return render_template("products_services/market_analysis/trading_acronyms.html", html_data=html_data)
+
+
+@market_analysis_bp.route("/docs", methods=['GET'])
+def docs():
+    html_data = market_analysis_html_data()
+    return render_template("products_services/market_analysis/test.html", html_data=html_data)

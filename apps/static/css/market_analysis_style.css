@@ -81,6 +81,11 @@ body {
     font-weight: 600;
     color: #4e73df !important;
 }
+.navbar-logo {
+    height: 40px; /* Adjust as needed */
+    width: auto;
+    margin-right: 10px;
+}
 .nav-item.dropdown .dropdown-menu {
     position: absolute;
 }
